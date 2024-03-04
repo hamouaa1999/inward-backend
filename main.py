@@ -51,7 +51,7 @@ emotion_recordings = db["emotion_recordings"]
 
 @app.route('/')
 def index():
-	return 'Hello, Hamou. You`re the best, believe me Wellah!'
+	return 'Hello, Hamou. You`re the best, believe me!'
 
 # Authentication Routes
 @app.route('/api/auth/signin', methods=['POST'])
