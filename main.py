@@ -111,7 +111,7 @@ def delete_user(id):
 	user_id = ObjectId(id)
 	result = users.delete_one({'_id': user_id})
 	if result.deleted_count == 1:
-		return jsonify({ 'message': 'User deleted successfully...' })
+		return jsonify({ 'message': 'User deleted successfully' })
 	return jsonify({ 'error': 'User not deleted' })
 
 def get_python_process_port():
