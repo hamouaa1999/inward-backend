@@ -17,7 +17,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
                     sh 'docker login -u hamou99 -p ${dockerhubpassword}'   
                 }
-                sh 'docker push hhamou99/inward-backend-flask:latest'
+                sh 'docker push hamou99/inward-backend-flask:latest'
             }
         }
     }
