@@ -1,30 +1,24 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Build') {
+        stage('SonarQube Analysis') {
             steps {
-                echo 'Building...'
-                // Add your build commands here
+                sh 'sonar-scanner -Dsonar.projectKey=share-your-experience -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_3b96deb7444886a165ec71f3e8dfa2c412ec1b14'
             }
         }
-        stage('Test') {
+        stage('Docker image creation') {
             steps {
-                echo 'Testing...'
-                // Add your test commands here
+                sh 'docker build -t hamou99/inward-backend-flask .'
             }
         }
-        stage('Deploy') {
+        stage('Docker image deployment') {
             steps {
-                echo 'Deploying...'
-                // Add your deployment commands here
+                withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
+                    sh 'docker login -u hamou99 -p ${dockerhubpassword}'   
+                }
+                sh 'docker push hhamou99/inward-backend-flask:latest'
             }
-        }
-    }
-    
-    post {
-        always {
-            echo 'Pipeline finished.'
         }
     }
 }
